@@ -287,13 +287,13 @@ def _build_kpi_html(history_df):
         prix_valides = history_df["PrixNum"].dropna()
         avg_prix_m = prix_valides.mean() / 1_000_000 if len(prix_valides) else 0.0
         history_df["Horodatage"] = pd.to_datetime(
-    history_df["Horodatage"],
-    errors="coerce"
-)
+         history_df["Horodatage"],
+         errors="coerce"
+         )
 
-today_count = int(
-    (history_df["Horodatage"].dt.date == today).sum()
-)
+        today_count = int(
+        (history_df["Horodatage"].dt.date == today).sum()
+     )
 
     conf_status = "✓ Performance validée" if avg_conf >= 80 else "⚠️ À surveiller"
 
