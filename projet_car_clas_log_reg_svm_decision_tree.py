@@ -626,7 +626,7 @@ for i in range(10) :
 
 """### <font color = 'bisque'>Deploiement du modèle avec Gradio<font>"""
 
-!pip install gradio
+# !pip install gradio
 
 # Fonction de prédiction
 import gradio as gr
@@ -1788,24 +1788,3 @@ with gr.Blocks(
 if __name__ == "__main__":
 
     demo.launch(share=True)
-
-#
-from sklearn.tree import plot_tree
-plot_tree(dt_model, proportion=True)
-plt.show()
-
-"""### <font color ='bisque'>Tester le modèle le plus performant<font>"""
-
-# echantillon
-x_test_10 = x_test[10:20]
-y_test_10 = y_test[10:20]
-#Prédictions
-y_pred_10 = dt_model.predict(x_test_10)
-class_names =['Venant', 'Occasion']
-for i in range(10):
-  print(f'Prediction {str(i+1)} : {class_names[y_pred_10[i]]} --- Réels: {class_names[y_test_10[i]]}')
-
-"""# Exercices:"""
-
-# Appliquer les lg, svm et dt sur les données car_data
-# Rajouter le modèle knn sur ce TP là
