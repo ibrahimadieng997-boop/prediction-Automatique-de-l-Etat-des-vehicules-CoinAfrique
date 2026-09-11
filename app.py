@@ -436,7 +436,7 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 HEADER_HTML = """
 <div class="dashboard-header">
-    <div class="dashboard-title">🚗 CoinAfrique AI</div>
+    <div class="dashboard-title">🚗 Modèle de machine learning pour la prédiction de l'état des véhicules CoinAfrique</div>
     <div class="dashboard-subtitle">
         Tableau de bord intelligent pour la prédiction
         automatique de l'état des véhicules
