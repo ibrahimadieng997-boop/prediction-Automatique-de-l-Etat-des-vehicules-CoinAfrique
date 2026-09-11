@@ -275,6 +275,8 @@ def _build_dashboard_table(history_df, max_rows=50):
     return display_df[["Véhicule", "Année", "Prix", "Quartier", "État Prédit", "Confiance"]]
 
 
+from datetime import date
+
 def _build_kpi_html(history_df):
     total = len(history_df)
 
@@ -292,6 +294,8 @@ def _build_kpi_html(history_df):
             errors="coerce"
         )
 
+        today = date.today()  # <-- Définition de la variable manquante
+        
         today_count = int(
             (history_df["Horodatage"].dt.date == today).sum()
         )
