@@ -284,12 +284,33 @@ def _build_kpi_html(history_df):
         today_count = 0
     else:
         avg_conf = history_df["Confiance"].mean()
-        prix_valides = history_df["PrixNum"].dropna()
-        avg_prix_m = prix_valides.mean() / 1_000_000 if len(prix_valides) else 0.0
-        today = dt.datetime.now().date()
-        today_count = int((history_df["Horodatage"].dt.date == today).sum())
 
-    conf_status = "✓ Performance validée" if avg_conf >= 80 else "⚠️ À surveiller"
+        prix_valides = history_df["PrixNum"].dropna()
+        avg_prix_m = (
+            prix_valides.mean() / 1_000_000
+            if len(prix_valides)
+            else 0.0
+        )
+
+        # ============================================================
+        # CORRECTION : conversion explicite de Horodatage en datetime
+        # ============================================================
+        historique_dates = pd.to_datetime(
+            history_df["Horodatage"],
+            errors="coerce"
+        )
+
+        today = dt.datetime.now().date()
+
+        today_count = int(
+            (historique_dates.dt.date == today).sum()
+        )
+
+    conf_status = (
+        "✓ Performance validée"
+        if avg_conf >= 80
+        else "⚠️ À surveiller"
+    )
 
     return f"""
 <div class="kpi-container">
@@ -299,18 +320,21 @@ def _build_kpi_html(history_df):
         <div class="kpi-value">{total}</div>
         <div class="kpi-positive">Total cumulé</div>
     </div>
+
     <div class="kpi-card kpi-green">
         <div class="kpi-icon">🎯</div>
         <div class="kpi-title">CONFIANCE MOYENNE</div>
         <div class="kpi-value">{avg_conf:.1f} %</div>
         <div class="kpi-positive">{conf_status}</div>
     </div>
+
     <div class="kpi-card kpi-orange">
         <div class="kpi-icon">💰</div>
         <div class="kpi-title">PRIX MOYEN ÉVALUÉ</div>
         <div class="kpi-value">{avg_prix_m:.1f} M</div>
         <div class="kpi-positive">FCFA</div>
     </div>
+
     <div class="kpi-card kpi-purple">
         <div class="kpi-icon">⚡</div>
         <div class="kpi-title">PRÉDICTIONS AUJOURD'HUI</div>
@@ -318,6 +342,7 @@ def _build_kpi_html(history_df):
         <div class="kpi-positive">Depuis minuit</div>
     </div>
 </div>
+"""
 """
 
 
