@@ -673,7 +673,7 @@ def Pred_func_csv(file):
   df.to_csv('predictions.csv', index = False)
   return 'predictions.csv'
 
-!npm install -g localtunnel
+# !npm install -g localtunnel
 
 # import gradio as gr
 # import joblib as jb
